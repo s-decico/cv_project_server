@@ -30,9 +30,22 @@ app.use((req, res, next) => {
   // const origin = req.headers.origin;
 
   // if (allowedOrigins.includes(origin)) {
-  //   res.setHeader("Access-Control-Allow-Origin", "*");
+  //   res.setHeader("Access-Control-Allow-Origin", origin);
   // }
-  res.setHeader("Access-Control-Allow-Origin", "*");
+
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://resumatebys.netlify.app"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://resumatebys.vercel.app"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://cv-project-server.vercel.app"
+  );
+
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader(
     "Access-Control-Allow-Methods",
