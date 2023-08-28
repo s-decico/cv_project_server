@@ -21,17 +21,18 @@ app.use((err, req, res, next) => {
   console.log("Error:" + err);
 });
 app.use((req, res, next) => {
-  const allowedOrigins = [
-    "http://localhost:3000",
-    "https://resumatebys.netlify.app",
-    "https://resumatebys.vercel.app",
-  ];
-  const origin = req.headers.origin;
+  // const allowedOrigins = [
+  //   "http://localhost:3000",
+  //   "https://resumatebys.netlify.app",
+  //   "https://resumatebys.vercel.app",
+  //   "https://cv-project-server.vercel.app",
+  // ];
+  // const origin = req.headers.origin;
 
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
-
+  // if (allowedOrigins.includes(origin)) {
+  //   res.setHeader("Access-Control-Allow-Origin", "*");
+  // }
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader(
     "Access-Control-Allow-Methods",
