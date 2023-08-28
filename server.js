@@ -21,37 +21,25 @@ app.use((err, req, res, next) => {
   console.log("Error:" + err);
 });
 app.use((req, res, next) => {
-  // const allowedOrigins = [
-  //   "http://localhost:3000",
-  //   "https://resumatebys.netlify.app",
-  //   "https://resumatebys.vercel.app",
-  //   "https://cv-project-server.vercel.app",
-  // ];
-  // const origin = req.headers.origin;
+  const allowedOrigins = [
+    "http://localhost:3000",
+    "https://resumatebys.netlify.app",
+    "https://resumatebys.vercel.app",
+    "https://cv-project-server.vercel.app",
+  ];
+  const origin = req.headers.origin;
 
-  // if (allowedOrigins.includes(origin)) {
-  //   res.setHeader("Access-Control-Allow-Origin", origin);
-  // }
-
-  // res.setHeader(
-  //   "Access-Control-Allow-Origin",
-  //   "https://resumatebys.netlify.app"
-  // );
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://resumatebys.vercel.app"
-  );
-  // res.setHeader(
-  //   "Access-Control-Allow-Origin",
-  //   "https://cv-project-server.vercel.app"
-  // );
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
 
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, OPTIONS"
   );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  r;
+  es.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
   if (req.method === "OPTIONS") {
     res.sendStatus(200);
@@ -100,6 +88,12 @@ const verifyToken = (token, secret) => {
     return null;
   }
 };
+
+//Test
+app.route("/test").get((req, res) => {
+  res.send("Hellooooo");
+});
+//
 
 app.route("/").get((req, res) => {
   let decodedToken = false;
