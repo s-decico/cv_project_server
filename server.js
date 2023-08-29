@@ -190,14 +190,12 @@ app.route("/login").post((req, res) => {
           res.cookie("isAuthenticated", true, {
             secure: true,
             sameSite: "None",
-            domain: ".vercel.app",
           });
           res
             .status(200)
             .cookie("token", token, {
               secure: true,
               sameSite: "None",
-              domain: ".vercel.app",
             })
             .json({ token: token });
         } else {
