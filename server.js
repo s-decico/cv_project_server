@@ -100,8 +100,8 @@ app.route("/").get((req, res) => {
     const receivedToken = req.cookies.token;
     decodedToken = verifyToken(receivedToken, process.env.JWT_SECRET_KEY);
   }
-  if (decodedToken) res.sendStatus(200);
-  else res.sendStatus(401);
+  if (decodedToken) res.sendStatus(200).send("Heloooo");
+  else res.sendStatus(401).send("Heloooo");
 });
 //API endpoints
 app.route("/validatetoken").post((req, res) => {
