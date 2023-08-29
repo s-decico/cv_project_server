@@ -89,20 +89,21 @@ const verifyToken = (token, secret) => {
 };
 
 //Test
-app.route("/test").get((req, res) => {
+app.route("/").get((req, res) => {
   res.send("Hellooooo");
 });
 //
 
-app.route("/").get((req, res) => {
-  let decodedToken = false;
-  if (req.cookies.token) {
-    const receivedToken = req.cookies.token;
-    decodedToken = verifyToken(receivedToken, process.env.JWT_SECRET_KEY);
-  }
-  if (decodedToken) res.sendStatus(200);
-  else res.sendStatus(401);
-});
+// app.route("/").get((req, res) => {
+//   let decodedToken = false;
+//   if (req.cookies.token) {
+//     const receivedToken = req.cookies.token;
+//     decodedToken = verifyToken(receivedToken, process.env.JWT_SECRET_KEY);
+//   }
+//   if (decodedToken) res.sendStatus(200).send("Heloooo");
+//   else res.sendStatus(401).send("Heloooo");
+// });
+
 //API endpoints
 app.route("/validatetoken").post((req, res) => {
   if (req) {
