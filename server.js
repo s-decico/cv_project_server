@@ -216,6 +216,8 @@ app.route("/fetchform").get((req, res) => {
   }
 });
 
+const port =
+  process.env.REACT_APP_ENVIRONMENT == "PRODUCTION" ? process.env.PORT : 3001;
 app.listen(3001, () => {
-  console.log("Server started at port 3001");
+  console.log("Server started at port:", port);
 });
