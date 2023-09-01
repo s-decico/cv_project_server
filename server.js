@@ -39,6 +39,7 @@ app.use((req, res, next) => {
     "GET, POST, PUT, DELETE, OPTIONS"
   );
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
 
   if (req.method === "OPTIONS") {
     res.sendStatus(200);
