@@ -38,7 +38,10 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, OPTIONS"
   );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept,Authorization"
+  );
   res.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
 
   if (req.method === "OPTIONS") {
@@ -191,12 +194,14 @@ app.route("/login").post((req, res) => {
           res.cookie("isAuthenticated", true, {
             secure: true,
             sameSite: "None",
+            domain: ".vercel.app",
           });
           res
             .status(200)
             .cookie("token", token, {
               secure: true,
               sameSite: "None",
+              domain: ".vercel.app",
             })
             .json({ token: token });
         } else {
