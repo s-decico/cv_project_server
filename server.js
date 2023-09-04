@@ -42,7 +42,7 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Headers",
     "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept,Authorization"
   );
-  res.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
+  // res.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
 
   if (req.method === "OPTIONS") {
     res.sendStatus(200);
