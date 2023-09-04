@@ -196,6 +196,7 @@ app.route("/login").post((req, res) => {
             sameSite: "None",
             domain: ".onrender.com",
           });
+          console.log("Cookies set");
           res
             .status(200)
             .cookie("token", token, {
@@ -204,6 +205,7 @@ app.route("/login").post((req, res) => {
               domain: ".onrender.com",
             })
             .json({ token: token });
+          console.log("Response sent with cookies");
         } else {
           res.status(401).json({ error: "Incorrect password" });
         }
