@@ -193,14 +193,14 @@ app.route("/login").post((req, res) => {
           const token = generateToken(result.email, result._id);
           res.cookie("isAuthenticated", true, {
             secure: true,
-            sameSite: "Strict",
+            sameSite: "None",
           });
           console.log("Cookies set");
           res
             .status(200)
             .cookie("token", token, {
               secure: true,
-              sameSite: "Strict",
+              sameSite: "None",
             })
             .json({ token: token });
           console.log("Response sent with cookies");
