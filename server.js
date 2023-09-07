@@ -192,14 +192,14 @@ app.route("/login").post((req, res) => {
         if (result.password === password) {
           const token = generateToken(result.email, result._id);
           res.cookie("isAuthenticated", true, {
-            secure: true,
+            secure: false,
             sameSite: "None",
           });
           console.log("Cookies set");
           res
             .status(200)
             .cookie("token", token, {
-              secure: true,
+              secure: false,
               sameSite: "None",
             })
             .json({ token: token });
