@@ -202,7 +202,7 @@ app.route("/login").post((req, res) => {
             .cookie("token", token, {
               secure: true,
               sameSite: "None",
-              domain: "vercel.app",
+              path: "/login",
             })
             .json({ token: token });
           console.log("Response sent with cookies");
