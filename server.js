@@ -194,6 +194,7 @@ app.route("/login").post((req, res) => {
           res.cookie("isAuthenticated", true, {
             secure: true,
             sameSite: "None",
+            maxAge: 2 * 60 * 60 * 1000,
             // httpOnly: true,
           });
           console.log("Cookies set");
@@ -202,6 +203,7 @@ app.route("/login").post((req, res) => {
             .cookie("token", token, {
               secure: true,
               sameSite: "None",
+              maxAge: 2 * 60 * 60 * 1000,
               // httpOnly: true,
             })
             .json({ token: token });
