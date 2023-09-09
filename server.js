@@ -42,7 +42,7 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Headers",
     "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept,Authorization"
   );
-  // res.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
+  res.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
 
   if (req.method === "OPTIONS") {
     res.sendStatus(200);
@@ -194,7 +194,7 @@ app.route("/login").post((req, res) => {
           res.cookie("isAuthenticated", true, {
             secure: true,
             sameSite: "None",
-            httpOnly: true,
+            // httpOnly: true,
           });
           console.log("Cookies set");
           res
@@ -202,7 +202,7 @@ app.route("/login").post((req, res) => {
             .cookie("token", token, {
               secure: true,
               sameSite: "None",
-              httpOnly: true,
+              // httpOnly: true,
             })
             .json({ token: token });
           console.log("Response sent with cookies");
