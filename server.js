@@ -194,7 +194,7 @@ app.route("/login").post((req, res) => {
           res.cookie("isAuthenticated", true, {
             secure: true,
             sameSite: "None",
-            path: "/login",
+            httpOnly: true,
           });
           console.log("Cookies set");
           res
@@ -202,7 +202,7 @@ app.route("/login").post((req, res) => {
             .cookie("token", token, {
               secure: true,
               sameSite: "None",
-              path: "/login",
+              httpOnly: true,
             })
             .json({ token: token });
           console.log("Response sent with cookies");
