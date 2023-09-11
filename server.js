@@ -42,7 +42,7 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Headers",
     "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept,Authorization"
   );
-  res.setHeader("Access-Control-Expose-Headers", "set-cookie");
+  // res.setHeader("Access-Control-Expose-Headers", "set-cookie");
 
   if (req.method === "OPTIONS") {
     res.sendStatus(200);
@@ -191,21 +191,15 @@ app.route("/login").post((req, res) => {
       if (result) {
         if (result.password === password) {
           const token = generateToken(result.email, result._id);
-          res
-            .status(200)
-            .cookie("isAuthenticated", true, {
-              secure: true,
-              sameSite: "None",
-            })
-            .json({ isAuthenticated: true });
+          res.status(200).json({ token: token, isAuthenticated: true });
           console.log("Cookies set");
-          res
-            .status(200)
-            .cookie("token", token, {
-              secure: true,
-              sameSite: "None",
-            })
-            .json({ token: token });
+          // res
+          //   .status(200)
+          //   .cookie("token", token, {
+          //     secure: true,
+          //     sameSite: "None",
+          //   })
+          //   .json({ token: token });
           console.log("Response sent with cookies");
         } else {
           res.status(401).json({ error: "Incorrect password" });
