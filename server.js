@@ -214,6 +214,7 @@ app.route("/login").post((req, res) => {
 });
 
 app.route("/fetchform").get((req, res) => {
+  console("Fetching details of form triggered...");
   const token = req.cookies.token;
   if (token) {
     decodedToken = verifyToken(token, process.env.JWT_SECRET_KEY);
