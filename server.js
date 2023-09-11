@@ -216,8 +216,11 @@ app.route("/login").post((req, res) => {
 app.route("/fetchform").get((req, res) => {
   console.log("Fetching details of form triggered...");
   const token = req.cookies.token;
+  console.log("request:", req);
+  console.log("Token", token);
   if (token) {
     decodedToken = verifyToken(token, process.env.JWT_SECRET_KEY);
+    console.log("Decoded Token:", decodedToken);
     UserDetails.findOne({ UserID: decodedToken.id })
       .then((result) => {
         console.log("Found User");
@@ -227,6 +230,7 @@ app.route("/fetchform").get((req, res) => {
         console.log("No details found:" + err);
       });
   }
+  console.log("End of fetchform");
 });
 
 const port =
