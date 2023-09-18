@@ -215,9 +215,8 @@ app.route("/login").post((req, res) => {
 
 app.route("/fetchform").get((req, res) => {
   console.log("Fetching details of form triggered...");
-  // const token = req.cookies.token;
-  const token = req.body.token;
-  // console.log("request:", req);
+  // const token = req.body.token;
+  const token = req.headers.authorization?.split(" ")[1];
   console.log("Token", token);
   if (token) {
     decodedToken = verifyToken(token, process.env.JWT_SECRET_KEY);
