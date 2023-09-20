@@ -101,8 +101,8 @@ app.route("/").get((req, res) => {
 //API endpoints
 app.route("/validatetoken").post((req, res) => {
   if (req) {
-    if (req.cookies.token) {
-      const receivedToken = req.cookies.token;
+    if (req.headers.authorization?.split(" ")[1]) {
+      const receivedToken = req.headers.authorization?.split(" ")[1];
       decodedToken = verifyToken(receivedToken, process.env.JWT_SECRET_KEY);
     }
     if (decodedToken) {
@@ -113,10 +113,12 @@ app.route("/validatetoken").post((req, res) => {
 
 app.route("/cvinput").post((req, res) => {
   let decodedToken = "";
+  console.log("Headers:", req.headers);
   try {
     if (req) {
-      if (req.cookies.token) {
-        const receivedToken = req.cookies.token;
+      if (req.headers.authorization?.split(" ")[1]) {
+        const receivedToken = req.headers.authorization?.split(" ")[1];
+        console.log("Received Token:", receivedToken);
         decodedToken = verifyToken(receivedToken, process.env.JWT_SECRET_KEY);
       }
       console.log("Decoded Token", decodedToken);
@@ -212,7 +214,7 @@ app.route("/login").post((req, res) => {
 
 app.route("/fetchform").get((req, res) => {
   // console.log("Fetching details of form triggered...");
-  // const token = req.cookies.token;
+  // const token = req.headers.authorization?.split(" ")[1];;
   const token = req.headers.authorization?.split(" ")[1];
   if (token) {
     decodedToken = verifyToken(token, process.env.JWT_SECRET_KEY);
