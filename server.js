@@ -119,16 +119,16 @@ app.route("/cvinput").post((req, res) => {
         const receivedToken = req.cookies.token;
         decodedToken = verifyToken(receivedToken, process.env.JWT_SECRET_KEY);
       }
-
+      console.log("Decoded Token", decodedToken);
       const parsedObject = req.body;
       parsedObject["UserID"] =
         decodedToken.email != null ? decodedToken.email : "";
-
+      console.log("Updated Parsed object", parsedObject);
       if (decodedToken) {
         console.log("Inside update1:", decodedToken);
         UserDetails.findOne({ UserID: decodedToken.email })
           .then((response) => {
-            console.log(response);
+            // console.log(response);
             if (response) {
               console.log("Inside update");
               UserDetails.updateOne(
@@ -190,7 +190,6 @@ app.route("/register").post((req, res) => {
 
 app.route("/login").post((req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
   UserCred.findOne({ email: email })
     .then((result) => {
       if (result) {
@@ -212,12 +211,12 @@ app.route("/login").post((req, res) => {
 });
 
 app.route("/fetchform").get((req, res) => {
-  console.log("Fetching details of form triggered...", req.headers);
+  // console.log("Fetching details of form triggered...");
   // const token = req.cookies.token;
   const token = req.headers.authorization?.split(" ")[1];
   if (token) {
     decodedToken = verifyToken(token, process.env.JWT_SECRET_KEY);
-    console.log("Decoded Token:", decodedToken);
+    // console.log("Decoded Token:", decodedToken);
     UserDetails.findOne({ UserID: decodedToken.email })
       .then((result) => {
         console.log("Found User");
@@ -227,7 +226,6 @@ app.route("/fetchform").get((req, res) => {
         console.log("No details found:" + err);
       });
   }
-  console.log("End of fetchform");
 });
 
 const port =
