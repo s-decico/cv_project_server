@@ -73,10 +73,10 @@ mongoose
 //Token handler functions
 const secretKey = process.env.JWT_SECRET_KEY;
 
-function generateToken(username, id) {
+function generateToken(email, id) {
   const userData = {
     id: id,
-    username: username,
+    email: email,
   };
   const token = jwt.sign(userData, secretKey);
   return token;
@@ -121,16 +121,20 @@ app.route("/cvinput").post((req, res) => {
       }
 
       const parsedObject = req.body;
-      parsedObject["UserID"] = decodedToken.id != null ? decodedToken.id : "";
+      parsedObject["UserID"] =
+        decodedToken.email != null ? decodedToken.email : "";
 
       if (decodedToken) {
         console.log("Inside update1:", decodedToken);
-        UserDetails.findOne({ UserID: decodedToken.id })
+        UserDetails.findOne({ UserID: decodedToken.email })
           .then((response) => {
             console.log(response);
             if (response) {
               console.log("Inside update");
-              UserDetails.updateOne({ UserID: decodedToken.id }, parsedObject)
+              UserDetails.updateOne(
+                { UserID: decodedToken.email },
+                parsedObject
+              )
                 .then((result) => {
                   res.status(200).send("Okay");
                   console.log("Successfully updated existing data");
@@ -186,6 +190,7 @@ app.route("/register").post((req, res) => {
 
 app.route("/login").post((req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
   UserCred.findOne({ email: email })
     .then((result) => {
       if (result) {
@@ -193,13 +198,6 @@ app.route("/login").post((req, res) => {
           const token = generateToken(result.email, result._id);
           res.status(200).json({ token: token, isAuthenticated: true });
           console.log("Cookies set");
-          // res
-          //   .status(200)
-          //   .cookie("token", token, {
-          //     secure: true,
-          //     sameSite: "None",
-          //   })
-          //   .json({ token: token });
           console.log("Response sent with cookies");
         } else {
           res.status(401).json({ error: "Incorrect password" });
@@ -220,7 +218,7 @@ app.route("/fetchform").get((req, res) => {
   if (token) {
     decodedToken = verifyToken(token, process.env.JWT_SECRET_KEY);
     console.log("Decoded Token:", decodedToken);
-    UserDetails.findOne({ UserID: decodedToken.id })
+    UserDetails.findOne({ UserID: decodedToken.email })
       .then((result) => {
         console.log("Found User");
         res.json(result);
