@@ -113,7 +113,7 @@ app.route("/validatetoken").post((req, res) => {
 
 app.route("/cvinput").post((req, res) => {
   let decodedToken = "";
-  console.log("Headers:", req.headers);
+  console.log("Headers:", req);
   try {
     if (req) {
       if (req.headers.authorization?.split(" ")[1]) {
